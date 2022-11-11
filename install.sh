@@ -987,7 +987,8 @@ EOF
 # 检查ip
 checkIP() {
 	echoContent skyBlue "\n ---> 检查域名ip中"
-	localIP=$(curl -s -m 2 "${domain}/ip")
+	# localIP=$(curl -s -m 2 "${domain}/ip")
+	localIP=$(dig +short ${domain})
 	handleNginx stop
 	if [[ -z ${localIP} ]] || ! echo "${localIP}" | sed '1{s/[^(]*(//;s/).*//;q}' | grep -q '\.' && ! echo "${localIP}" | sed '1{s/[^(]*(//;s/).*//;q}' | grep -q ':'; then
 		echoContent red "\n ---> 未检测到当前域名的ip"
